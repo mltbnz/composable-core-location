@@ -257,11 +257,11 @@ public struct LocationManager {
 
   public var authorizationStatus: () -> CLAuthorizationStatus
 
-  public var delegate: () -> Effect<Action, Never>
+  public var delegate: @Sendable () -> AsyncStream<Action>
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
-  public var dismissHeadingCalibrationDisplay: () -> Effect<Never, Never>
+  public var dismissHeadingCalibrationDisplay: @Sendable () async -> Void
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
@@ -288,15 +288,15 @@ public struct LocationManager {
   public var monitoredRegions: () -> Set<Region>
 
   @available(tvOS, unavailable)
-  public var requestAlwaysAuthorization: () -> Effect<Never, Never>
+  public var requestAlwaysAuthorization: @Sendable () async -> Void
 
-  public var requestLocation: () -> Effect<Never, Never>
+  public var requestLocation: @Sendable () async -> Void
 
-  public var requestWhenInUseAuthorization: () -> Effect<Never, Never>
+  public var requestWhenInUseAuthorization: @Sendable () async -> Void
 
-  public var requestTemporaryFullAccuracyAuthorization: (String) -> Effect<Never, Error>
+  public var requestTemporaryFullAccuracyAuthorization: @Sendable (String) async throws -> Void
 
-  public var set: (Properties) -> Effect<Never, Never>
+  public var set: @Sendable (Properties) async -> Void
 
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
@@ -304,48 +304,48 @@ public struct LocationManager {
 
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var startMonitoringForRegion: (Region) -> Effect<Never, Never>
+  public var startMonitoringForRegion: @Sendable (Region) async -> Void
 
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var startMonitoringSignificantLocationChanges: () -> Effect<Never, Never>
+  public var startMonitoringSignificantLocationChanges: @Sendable () async -> Void
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var startMonitoringVisits: () -> Effect<Never, Never>
+  public var startMonitoringVisits: @Sendable () async -> Void
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
-  public var startUpdatingHeading: () -> Effect<Never, Never>
+  public var startUpdatingHeading: @Sendable () async -> Void
 
   @available(tvOS, unavailable)
-  public var startUpdatingLocation: () -> Effect<Never, Never>
-
-  @available(tvOS, unavailable)
-  @available(watchOS, unavailable)
-  public var stopMonitoringForRegion: (Region) -> Effect<Never, Never>
+  public var startUpdatingLocation: @Sendable () async -> Void
 
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var stopMonitoringSignificantLocationChanges: () -> Effect<Never, Never>
+  public var stopMonitoringForRegion: @Sendable (Region) async -> Void
+
+  @available(tvOS, unavailable)
+  @available(watchOS, unavailable)
+  public var stopMonitoringSignificantLocationChanges: @Sendable () async -> Void
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var stopMonitoringVisits: () -> Effect<Never, Never>
+  public var stopMonitoringVisits: @Sendable () async -> Void
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
-  public var stopUpdatingHeading: () -> Effect<Never, Never>
+  public var stopUpdatingHeading: @Sendable () async -> Void
 
-  public var stopUpdatingLocation: () -> Effect<Never, Never>
+  public var stopUpdatingLocation: @Sendable () async -> Void
 
   /// Updates the given properties of a uniquely identified `CLLocationManager`.
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public func set(
+  @Sendable public func set(
     activityType: CLActivityType? = nil,
     allowsBackgroundLocationUpdates: Bool? = nil,
     desiredAccuracy: CLLocationAccuracy? = nil,
@@ -354,8 +354,8 @@ public struct LocationManager {
     headingOrientation: CLDeviceOrientation? = nil,
     pausesLocationUpdatesAutomatically: Bool? = nil,
     showsBackgroundLocationIndicator: Bool? = nil
-  ) -> Effect<Never, Never> {
-    self.set(
+  ) async {
+    await self.set(
       Properties(
         activityType: activityType,
         allowsBackgroundLocationUpdates: allowsBackgroundLocationUpdates,

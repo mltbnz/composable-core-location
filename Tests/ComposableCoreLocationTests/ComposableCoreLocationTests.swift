@@ -2,6 +2,10 @@ import ComposableCoreLocation
 import XCTest
 
 class ComposableCoreLocationTests: XCTestCase {
+  func testMockHasDefaultsForAllEndpoints() {
+    _ = LocationManager.unimplemented
+  }
+
   func testLocationEncodeDecode() {
     let value: Location
 
