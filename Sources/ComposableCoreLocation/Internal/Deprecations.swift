@@ -7,7 +7,7 @@
       message:
         "Use 'Effect.cancellable' and 'Effect.cancel' to manage the lifecycle of 'LocationManager.delegate'"
     )
-    public func create(id: AnyHashable) -> EffectTask<Action> {
+    public func create(id: AnyHashable) -> Effect<Action> {
       return .none
     }
 
@@ -16,7 +16,7 @@
       message:
         "Use 'Effect.cancellable' and 'Effect.cancel' to manage the lifecycle of 'LocationManager.delegate'"
     )
-    public func destroy(id: AnyHashable) -> EffectTask<Never> {
+    public func destroy(id: AnyHashable) -> Effect<Never> {
       .cancel(id: id)
     }
 
