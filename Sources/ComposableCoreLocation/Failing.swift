@@ -38,37 +38,47 @@ extension LocationManager {
   /// ```
   public static let failing = Self(
     accuracyAuthorization: unimplemented(
-      "\(Self.self).accuracyAuthorization"
+      "\(Self.self).accuracyAuthorization",
+      placeholder: nil
     ),
     authorizationStatus: unimplemented(
-      "\(Self.self).authorizationStatus"
+      "\(Self.self).authorizationStatus",
+      placeholder: .denied
     ),
     delegate: unimplemented(
-      "\(Self.self).delegate"
+      "\(Self.self).delegate",
+      placeholder: AsyncStream.never
     ),
     dismissHeadingCalibrationDisplay: unimplemented(
       "\(Self.self).dismissHeadingCalibrationDisplay"
     ),
     heading: unimplemented(
-      "\(Self.self).heading"
+      "\(Self.self).heading",
+      placeholder: nil
     ),
     headingAvailable: unimplemented(
-      "\(Self.self).headingAvailable"
+      "\(Self.self).headingAvailable",
+      placeholder: false
     ),
     isRangingAvailable: unimplemented(
-      "\(Self.self).isRangingAvailable"
+      "\(Self.self).isRangingAvailable",
+      placeholder: false
     ),
     location: unimplemented(
-      "\(Self.self).location"
+      "\(Self.self).location",
+      placeholder: nil
     ),
     locationServicesEnabled: unimplemented(
-      "\(Self.self).locationServicesEnabled"
+      "\(Self.self).locationServicesEnabled",
+      placeholder: false
     ),
     maximumRegionMonitoringDistance: unimplemented(
-      "\(Self.self).maximumRegionMonitoringDistance"
+      "\(Self.self).maximumRegionMonitoringDistance",
+      placeholder: CLLocationDistance.greatestFiniteMagnitude
     ),
     monitoredRegions: unimplemented(
-      "\(Self.self).monitoredRegions"
+      "\(Self.self).monitoredRegions",
+      placeholder: []
     ),
     requestAlwaysAuthorization: unimplemented(
       "\(Self.self).requestAlwaysAuthorization"

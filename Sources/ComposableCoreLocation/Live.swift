@@ -212,7 +212,7 @@ private struct LocationManagerSendableBox: Sendable {
 }
 
 private final class LocationManagerDelegate: NSObject, CLLocationManagerDelegate, Sendable {
-  let continuations: ActorIsolated<[UUID: AsyncStream<LocationManager.Action>.Continuation]>
+  let continuations: LockIsolated<[UUID: AsyncStream<LocationManager.Action>.Continuation]>
 
   override init() {
     self.continuations = .init([:])
@@ -221,7 +221,7 @@ private final class LocationManagerDelegate: NSObject, CLLocationManagerDelegate
 
   func registerContinuation(_ continuation: AsyncStream<LocationManager.Action>.Continuation) {
     Task { [continuations] in
-      await continuations.withValue {
+      continuations.withValue {
         let id = UUID()
         $0[id] = continuation
         continuation.onTermination = { [weak self] _ in self?.unregisterContinuation(withID: id) }
@@ -230,12 +230,12 @@ private final class LocationManagerDelegate: NSObject, CLLocationManagerDelegate
   }
 
   private func unregisterContinuation(withID id: UUID) {
-    Task { [continuations] in await continuations.withValue { $0.removeValue(forKey: id) } }
+    Task { [continuations] in continuations.withValue { $0.removeValue(forKey: id) } }
   }
 
   private func send(_ action: LocationManager.Action) {
     Task { [continuations] in
-      await continuations.withValue { $0.values.forEach { $0.yield(action) } }
+      continuations.withValue { $0.values.forEach { $0.yield(action) } }
     }
   }
 
