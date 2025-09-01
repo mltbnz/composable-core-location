@@ -3,7 +3,7 @@ import XCTest
 
 class ComposableCoreLocationTests: XCTestCase {
   func testMockHasDefaultsForAllEndpoints() {
-    _ = LocationManager.unimplemented
+    _ = LocationManager.failing
   }
 
   func testLocationEncodeDecode() {
