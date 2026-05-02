@@ -6,7 +6,7 @@ import CoreLocation
 @available(macOS, unavailable)
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
-public struct Visit: Hashable {
+public struct Visit: Hashable, @unchecked Sendable {
   public let rawValue: CLVisit?
 
   public var arrivalDate: Date

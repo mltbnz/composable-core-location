@@ -2,7 +2,7 @@ import CoreLocation
 import Foundation
 
 /// A value type wrapper for `CLAccuracyAuthorization`
-public enum AccuracyAuthorization: Int {
+public enum AccuracyAuthorization: Int, Sendable {
   case fullAccuracy = 0
   case reducedAccuracy = 1
 }

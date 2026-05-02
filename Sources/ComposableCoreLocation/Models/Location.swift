@@ -3,7 +3,7 @@ import CoreLocation
 /// A value type wrapper for `CLLocation`. This type is necessary so that we can do equality checks
 /// and write tests against its values.
 @dynamicMemberLookup
-public struct Location {
+public struct Location: @unchecked Sendable {
   public let rawValue: CLLocation
 
   public init(
