@@ -300,6 +300,8 @@ extension LocationManager {
 
 extension LocationManager: DependencyKey {
   public static let liveValue: LocationManager = .live
+  public static let testValue = LocationManager()
+  public static let previewValue = LocationManager()
 }
 
 extension DependencyValues {
